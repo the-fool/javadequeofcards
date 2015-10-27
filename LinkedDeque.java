@@ -1,48 +1,106 @@
 package deckOfCards;
+import deckOfCards.Card;
 
-public class LinkedDeque<T> implements DequeInterface<T> {
-
-	@Override
-	public void addToFront(T newEntry) {
-		// TODO Auto-generated method stub
+public class LinkedDeque implements DequeInterface<Card> {
+	private DLNode<Card> firstNode;
+	private DLNode<Card> lastNode;
+	
+	public LinkedDeque()
+	{
+		firstNode = null;
+		lastNode = null;
+	}
+	
+	public LinkedDeque(DeckOfCards d) {
+		for (Card c : d) {
+			addToBack(c);
+		}
+	}
+	
+	private class DLNode<T> {
+		private T data;
+		private DLNode<T> next;
+		private DLNode<T> previous;
 		
-	}
-
-	@Override
-	public void addToBack(T newEntry) {
-		// TODO Auto-generated method stub
+		DLNode() {
+			this(null,null, null);
+		}
+		DLNode(DLNode<T> prev, T data, DLNode<T> next) {
+			this.next = next;
+			this.previous = prev;
+			this.data = data;
+		}
 		
+		public DLNode<T> getNext() {
+			return next;
+		}
+		public DLNode<T> getPrevious() {
+			return previous;
+		}
+		public void setNext(DLNode<T> n) {
+			this.next = n;
+		}
+		public void setPrev(DLNode<T> p) {
+			this.previous = p;
+		}
+	}
+
+
+	@Override
+	public void addToBack(Card newEntry) {
+		DLNode<Card> newNode = new DLNode<Card>(lastNode, newEntry, null);
+		
+		if (isEmpty())
+			firstNode = newNode;
+		else
+			lastNode.setNext(newNode);
+		lastNode = newNode;
 	}
 
 	@Override
-	public T removeFront() {
+	public void addToFront(Card newEntry) {
+		DLNode<Card> newNode = new DLNode<Card>(null, newEntry, firstNode);
+		if (isEmpty())
+			lastNode = newNode;
+		else
+			firstNode.setPrev(newNode);
+		firstNode = newNode;
+	}
+
+
+	@Override
+	public Card removeFront() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public T removeBack() {
+	public Card removeBack() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public T getBack() {
+	public Card getBack() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public T getFront() {
+	public Card getFront() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (firstNode == null) && (lastNode == null);
 	}
+
 
 	@Override
 	public void clear() {
