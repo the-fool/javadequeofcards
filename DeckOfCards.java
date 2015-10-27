@@ -12,7 +12,7 @@ public class DeckOfCards implements Iterable<Card> {
 		deck = new Card[52];
 		for (String suit : suits) {
 			for (int i = 1; i <= 13; i++) {
-				deck[index] = new Card(suit, i);
+				deck[index++] = new Card(suit, i);
 			}
 		}
 	}
@@ -20,26 +20,24 @@ public class DeckOfCards implements Iterable<Card> {
 
 	@Override
 	public Iterator<Card> iterator() {
-		return new CardIterator(deck);
+		return new CardIterator();
 	}
 	
 	private class CardIterator implements Iterator<Card>{
 		private int current;
-		private Card d[];
 		
-		CardIterator(Card d[]) {
-			this.d = d;
+		CardIterator() {
 			current = 0;
 		}
 		
 		@Override
 		public boolean hasNext() {
-			return (current < d.length);
+			return (current < deck.length);
 		}
 
 		@Override
 		public Card next() {
-			return d[current++];
+			return deck[current++];
 		}
 		
 	}
@@ -53,7 +51,9 @@ class Card implements Comparable<Card>{
 		this.suit = suit;
 		this.value = value;
 	}
-
+	public int getValue() {
+		return this.value;
+	}
 	@Override
 	public int compareTo(Card c) {
 		if (this.value > c.value) {
@@ -65,5 +65,9 @@ class Card implements Comparable<Card>{
 		else {
 			return this.suit.compareTo(c.suit);
 		}
+	}
+	
+	public String toString() {
+		return value + " of " + suit;
 	}
 }

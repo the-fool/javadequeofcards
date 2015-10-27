@@ -12,6 +12,8 @@ public class LinkedDeque implements DequeInterface<Card> {
 	}
 	
 	public LinkedDeque(DeckOfCards d) {
+		firstNode = null;
+		lastNode = null;
 		for (Card c : d) {
 			addToBack(c);
 		}
@@ -31,6 +33,9 @@ public class LinkedDeque implements DequeInterface<Card> {
 			this.data = data;
 		}
 		
+		public String toString() {
+			return data.toString();
+		}
 		public DLNode<T> getNext() {
 			return next;
 		}
@@ -49,7 +54,6 @@ public class LinkedDeque implements DequeInterface<Card> {
 	@Override
 	public void addToBack(Card newEntry) {
 		DLNode<Card> newNode = new DLNode<Card>(lastNode, newEntry, null);
-		
 		if (isEmpty())
 			firstNode = newNode;
 		else
@@ -106,6 +110,16 @@ public class LinkedDeque implements DequeInterface<Card> {
 	public void clear() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void display() {
+		DLNode<Card> tmp = new DLNode<Card>();
+		tmp = firstNode;
+		int i = 0;
+		while (tmp != null) {
+			System.out.println(tmp);
+			tmp = tmp.next;
+		}
 	}
 
 }
