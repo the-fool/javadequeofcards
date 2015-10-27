@@ -48,6 +48,9 @@ public class LinkedDeque implements DequeInterface<Card> {
 		public void setPrev(DLNode<T> p) {
 			this.previous = p;
 		}
+		public T getData() {
+			return data;
+		}
 	}
 
 
@@ -71,20 +74,35 @@ public class LinkedDeque implements DequeInterface<Card> {
 		firstNode = newNode;
 	}
 
-
 	@Override
 	public Card removeFront() {
-		// TODO Auto-generated method stub
-		return null;
+		Card front = null;
+		if (!isEmpty()) {
+			front = firstNode.getData();
+			firstNode = firstNode.getNext();
+			
+			if (firstNode == null)
+				lastNode = null;
+			else
+				firstNode.setPrev(null);
+		}
+		return front;
 	}
-
 
 	@Override
 	public Card removeBack() {
-		// TODO Auto-generated method stub
-		return null;
+		Card back = null;
+		if (!isEmpty()) {
+			back = lastNode.getData();
+			lastNode = lastNode.getPrevious();
+			
+			if (lastNode == null)
+				firstNode = null;
+			else
+				lastNode.setNext(null);
+		}
+		return back;
 	}
-
 
 	@Override
 	public Card getBack() {
@@ -92,13 +110,11 @@ public class LinkedDeque implements DequeInterface<Card> {
 		return null;
 	}
 
-
 	@Override
 	public Card getFront() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public boolean isEmpty() {
@@ -115,7 +131,6 @@ public class LinkedDeque implements DequeInterface<Card> {
 	public void display() {
 		DLNode<Card> tmp = new DLNode<Card>();
 		tmp = firstNode;
-		int i = 0;
 		while (tmp != null) {
 			System.out.println(tmp);
 			tmp = tmp.next;

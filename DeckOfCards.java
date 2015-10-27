@@ -3,7 +3,6 @@ package deckOfCards;
 import java.util.Iterator;
 
 public class DeckOfCards implements Iterable<Card> {
-	private static final int SIZE = 52;
 	private static final String suits[] = {"spades", "hearts", "diamonds", "clubs"};
 	private Card deck[];
 	
@@ -16,7 +15,6 @@ public class DeckOfCards implements Iterable<Card> {
 			}
 		}
 	}
-
 
 	@Override
 	public Iterator<Card> iterator() {
@@ -66,7 +64,6 @@ class Card implements Comparable<Card>{
 			return this.suit.compareTo(c.suit);
 		}
 	}
-	
 	public String toString() {
 		return value + " of " + suit;
 	}
