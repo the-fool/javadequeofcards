@@ -1,6 +1,8 @@
 package deckOfCards;
 
-public class DeckOfCards {
+import java.util.Iterator;
+
+public class DeckOfCards implements Iterable {
 	private static final int SIZE = 52;
 	private static final String suits[] = {"spades", "hearts", "diamonds", "clubs"};
 	private Card deck[];
@@ -38,5 +40,32 @@ public class DeckOfCards {
 				return this.suit.compareTo(c.suit);
 			}
 		}
+	}
+
+
+	@Override
+	public Iterator<Card> iterator() {
+		return new CardIterator(deck);
+	}
+	
+	private class CardIterator implements Iterator<Card>{
+		private int current;
+		private Card d[];
+		
+		CardIterator(Card d[]) {
+			this.d = d;
+			current = 0;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return (current < d.length);
+		}
+
+		@Override
+		public Card next() {
+			return d[current++];
+		}
+		
 	}
 }
